@@ -1,0 +1,180 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+html {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+q, blockquote {
+  quotes: none;
+}
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+a img {
+  border: none;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block;
+}
+
+.field-text {
+  border: none;
+  background: transparent;
+  outline: none;
+}
+
+* {
+  box-sizing: border-box;
+  transition: all 0.5s ease;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  color: #222222;
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: #327a81;
+}
+a:hover, a:focus, a:active {
+  color: #6cbec6;
+}
+
+section {
+  padding: 20px 15px;
+}
+
+table th {
+  background: #398B93;
+  border: 1px solid #FFFFFF;
+  color: #FFFFFF;
+  font-size: 16px;
+  padding: 10px;
+  text-align: center;
+}
+table tbody tr {
+  border: 5px solid #FFFFFF;
+  border-left: none;
+  border-right: none;
+}
+table tbody tr td {
+  padding: 25px;
+}
+table tbody tr:nth-child(odd) {
+  background: #edf7f8;
+}
+
+.field-text {
+  border-bottom: 1px solid #222222;
+  color: #222222;
+  font-size: 14px;
+  padding: 8px 0;
+}
+
+#search {
+  background: #222222;
+  padding: 20px 15px;
+  text-align: center;
+  height: 100px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+#search form {
+  -webkit-flex: 1;
+  flex: 1;
+}
+#search input {
+  border-bottom: 1px solid #FFFFFF;
+  color: #FFFFFF;
+  font-size: 30px;
+  padding: 0 0 20px;
+  width: 95%;
+  max-width: 800px;
+}
+
+#results table {
+  width: 100%;
+}
+#results table th {
+  text-transform: uppercase;
+  cursor: pointer;
+}
+#results table th.sort span {
+  position: relative;
+  padding-right: 25px;
+}
+#results table th.sort span:after {
+  content: '';
+  background: url(../images/sort-arrow.png) no-repeat;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+  right: -5px;
+  transition: all 0.25s ease;
+}
+#results table th.sort-asc span:after {
+  transform: translateY(-50%) rotate(180deg);
+}
+#results table td.col-date {
+  text-align: center;
+}
+
+.no-results #search {
+  height: 100%;
+}
+.no-results #results {
+  display: none;
+}

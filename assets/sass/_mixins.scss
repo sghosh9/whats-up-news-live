@@ -1,0 +1,17 @@
+%text-field {
+  border: none;
+  background: transparent;
+  outline: none;
+}
+
+@mixin theme-text-field($theme: light, $font-size: 14px, $padding: 8px 0) {
+  @if $theme == 'dark' {
+    border-bottom: 1px solid $theme-dark-font-color;
+    color: $theme-dark-font-color;
+  } @else {
+    border-bottom: 1px solid $theme-light-font-color;
+    color: $theme-light-font-color;
+  }
+  font-size: $font-size;
+  padding: $padding;
+}

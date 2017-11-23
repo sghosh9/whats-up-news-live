@@ -1,0 +1,127 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass/reset";
+@import "compass/css3";
+@import "variables";
+@import "mixins";
+
+
+
+// Global
+* {
+  box-sizing: border-box;
+  transition: all 0.5s ease;
+}
+html, body {
+  height: 100%;
+}
+body {
+  color: $theme-light-font-color;
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
+}
+a {
+  text-decoration: none;
+  color: darken($baseColor, 5%);
+  &:hover, &:focus, &:active {
+    color: lighten($baseColor, 20%);
+  }
+}
+section {
+  padding: 20px 15px;
+}
+table {
+  th {
+    background: $baseColor;
+    border: 1px solid $theme-dark-font-color;
+    color: $theme-dark-font-color;
+    font-size: 16px;
+    padding: 10px;
+    text-align: center;
+  }
+  tbody {
+    tr {
+      border: 5px solid $theme-dark-font-color;
+      border-left: none;
+      border-right: none;
+      td {
+        padding: 25px;
+      }
+      &:nth-child(odd) {
+        background: lighten($baseColor, 55%);
+      }
+    }
+  }
+}
+.field-text {
+  @extend %text-field;
+  @include theme-text-field;
+}
+
+
+// Search
+#search {
+  background: $color-black;
+  padding: 20px 15px;
+  text-align: center;
+  height: 100px;
+  @include display-flex();
+  @include align-items(center);
+  @include justify-content(center);
+  form {
+    @include flex(1);
+  }
+  input {
+    @include theme-text-field('dark', 30px, 0 0 20px);
+    width: 95%;
+    max-width: 800px;
+  }
+}
+
+// Results
+#results {
+  table {
+    width: 100%;
+    th {
+      text-transform: uppercase;
+      cursor: pointer;
+      &.sort {
+        span {
+          position: relative;
+          padding-right: 25px;
+          &:after {
+            content: '';
+            background: url(../images/sort-arrow.png) no-repeat;
+            height: 20px;
+            width: 20px;
+            position: absolute;
+            transform: translateY(-50%);
+            top: 50%;
+            right: -5px;
+            transition: all 0.25s ease;
+          }
+        }
+      }
+      &.sort-asc span:after {
+        transform: translateY(-50%) rotate(180deg);
+      }
+      &.sort-desc {}
+    }
+    td.col-date {
+      text-align: center;
+    }
+  }
+}
+
+// Default screen
+.no-results {
+  #search {
+    height: 100%;
+  }
+  #results {
+    display: none;
+  }
+}
