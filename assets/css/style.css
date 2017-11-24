@@ -1,7 +1,3 @@
-/* Welcome to Compass.
- * In this file you should write your main styles. (or centralize your imports)
- * Import this file using the following HTML or equivalent:
- * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -72,9 +68,16 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   height: 32px;
   cursor: pointer;
   outline: none;
+  margin-bottom: 10px;
 }
 .form-submit:hover, .form-reset:hover {
   opacity: 0.75;
+}
+@media (max-width: 767px) {
+  .form-submit, .form-reset {
+    transform: scale(0.75);
+    margin-bottom: 8px;
+  }
 }
 
 .form-submit {
@@ -96,8 +99,9 @@ html, body {
 
 body {
   color: #222222;
+  line-height: 20px;
   font-size: 14px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
 }
 
 a {
@@ -108,10 +112,29 @@ a:hover, a:focus, a:active {
   color: #6cbec6;
 }
 
-section {
-  padding: 20px 15px;
+h1 {
+  font-size: 32px;
+  line-height: 45px;
 }
 
+h2 {
+  font-size: 30px;
+  line-height: 40px;
+}
+
+section {
+  padding: 20px 15px;
+  overflow: hidden;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: scroll;
+}
+
+table {
+  min-width: 700px;
+}
 table th {
   background: #398B93;
   border: 1px solid #FFFFFF;
@@ -145,13 +168,20 @@ table tbody tr:nth-child(odd) {
   padding: 8px 0;
 }
 
+#page-title {
+  display: none;
+  color: #FFFFFF;
+  font-size: 50px;
+  line-height: 70px;
+  margin-bottom: 100px;
+}
+
 #main {
   height: 80%;
 }
 
 #search {
   background: #222222;
-  padding: 20px 15px;
   text-align: center;
   height: 100px;
   display: -webkit-flex;
@@ -162,12 +192,12 @@ table tbody tr:nth-child(odd) {
   justify-content: center;
 }
 #search form {
+  width: 95%;
+  max-width: 960px;
   -webkit-flex: 1;
   flex: 1;
 }
 #search form .form-wrapper {
-  width: 95%;
-  max-width: 800px;
   margin: auto;
   position: relative;
 }
@@ -227,6 +257,9 @@ table tbody tr:nth-child(odd) {
   text-align: center;
   min-width: 170px;
 }
+#results table td.col-title {
+  min-width: 300px;
+}
 
 #results-empty {
   display: -webkit-flex;
@@ -235,8 +268,8 @@ table tbody tr:nth-child(odd) {
   align-items: center;
   -webkit-justify-content: center;
   justify-content: center;
+  text-align: center;
   height: 100%;
-  font-size: 30px;
 }
 
 .showing-results #results {
@@ -246,9 +279,61 @@ table tbody tr:nth-child(odd) {
   display: none;
 }
 
+.no-results #page-title {
+  display: block;
+}
 .no-results #search {
   height: 100%;
 }
 .no-results #main {
   display: none;
+}
+
+@media (max-width: 767px) {
+  body {
+    line-height: 18px;
+    font-size: 12px;
+  }
+
+  section {
+    padding: 15px;
+  }
+
+  table th {
+    padding: 5px;
+    font-size: 14px;
+  }
+  table tbody tr td {
+    padding: 5px;
+  }
+
+  #page-title {
+    font-size: 30px;
+    line-height: 40px;
+    margin-bottom: 50px;
+  }
+
+  #search {
+    height: 70px;
+  }
+  #search form input {
+    border-bottom: 1px solid #FFFFFF;
+    color: #FFFFFF;
+    font-size: 16px;
+    padding: 0 60px 10px 0;
+  }
+  #search form .form-actions button:not(.hide) {
+    margin-left: 0;
+  }
+
+  #results table th.sort span {
+    padding-right: 20px;
+  }
+  #results table th.sort span:after {
+    transform: translateY(-50%) scale(0.75);
+  }
+  #results table td.col-date {
+    text-align: center;
+    min-width: 120px;
+  }
 }

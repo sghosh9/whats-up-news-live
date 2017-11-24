@@ -13,6 +13,7 @@
 
     <section id="search">
       <form id="news-search" >
+        <h1 id="page-title">Access news from over 5000 articles.<br>Start typing now.</h1>
         <div class="form-wrapper">
           <input type="text" class="field-text field-search" name="search" placeholder="What do you want to know today?" autofocus>
           <div class="form-actions">
@@ -26,20 +27,22 @@
     <div id="main">
 
       <section id="results">
-        <table>
-          <thead>
-            <tr>
-              <th class="col-date" column="publishedAt"><span>Published</span></th>
-              <th class="col-title" column="title"><span>Title</span></th>
-              <th class="col-author" column="author"><span>Author</span></th>
-              <th class="col-source" column="source"><span>Source</span></th>
-              <!-- <th column="description">Description</th> -->
-            </tr>
-          </thead>
-          <tbody>
+        <div class=table-responsive>
+          <table>
+            <thead>
+              <tr>
+                <th class="col-date" column="publishedAt"><span>Published</span></th>
+                <th class="col-title" column="title"><span>Title</span></th>
+                <th class="col-author" column="author"><span>Author</span></th>
+                <th class="col-source" column="source"><span>Source</span></th>
+                <!-- <th column="description">Description</th> -->
+              </tr>
+            </thead>
+            <tbody>
 
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <section id="results-empty">

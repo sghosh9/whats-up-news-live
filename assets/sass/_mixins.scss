@@ -12,8 +12,14 @@
   height: 32px;
   cursor: pointer;
   outline: none;
+  margin-bottom: 10px;
   &:hover {
     opacity: 0.75;
+  }
+
+  @media (max-width: 767px) {
+    transform: scale(0.75);
+    margin-bottom: 8px;
   }
 }
 

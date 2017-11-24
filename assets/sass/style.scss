@@ -1,13 +1,7 @@
-/* Welcome to Compass.
- * In this file you should write your main styles. (or centralize your imports)
- * Import this file using the following HTML or equivalent:
- * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
-
 @import "compass/reset";
 @import "compass/css3";
 @import "variables";
 @import "mixins";
-
 
 
 // Global
@@ -19,9 +13,10 @@ html, body {
   height: 100%;
 }
 body {
-  color: $theme-light-font-color;
-  font-size: 14px;
-  font-family: 'Open Sans', sans-serif;
+  color: $base-font-color;
+  line-height: $base-line-height;
+  font-size: $base-font-size;
+  font-family: $base-font-family;
 }
 a {
   text-decoration: none;
@@ -30,10 +25,24 @@ a {
     color: lighten($baseColor, 20%);
   }
 }
+h1 {
+  font-size: 32px;
+  line-height: 45px;
+}
+h2 {
+  font-size: 30px;
+  line-height: 40px;
+}
 section {
   padding: 20px 15px;
+  overflow: hidden;
+}
+.table-responsive {
+  width: 100%;
+  overflow-x: scroll;
 }
 table {
+  min-width: 700px;
   th {
     background: $baseColor;
     border: 1px solid $theme-dark-font-color;
@@ -72,26 +81,31 @@ table {
   @extend %form-reset;
 }
 
+#page-title {
+  display: none;
+  color: $theme-dark-font-color;
+  font-size: 50px;
+  line-height: 70px;
+  margin-bottom: 100px;
+}
 
 #main {
   height: 80%;
 }
 
-
 // Search
 #search {
   background: $color-black;
-  padding: 20px 15px;
   text-align: center;
   height: 100px;
   @include display-flex();
   @include align-items(center);
   @include justify-content(center);
   form {
+    width: 95%;
+    max-width: 960px;
     @include flex(1);
     .form-wrapper {
-      width: 95%;
-      max-width: 800px;
       margin: auto;
       position: relative;
     }
@@ -150,6 +164,9 @@ table {
       text-align: center;
       min-width: 170px;
     }
+    td.col-title {
+      min-width: 300px;
+    }
   }
 }
 
@@ -158,8 +175,8 @@ table {
   @include display-flex();
   @include align-items(center);
   @include justify-content(center);
+  text-align: center;
   height: 100%;
-  font-size: 30px;
 }
 
 .showing-results {
@@ -174,10 +191,80 @@ table {
 
 // Default screen
 .no-results {
+  #page-title {
+    display: block;
+  }
   #search {
     height: 100%;
   }
   #main {
     display: none;
+  }
+}
+
+
+
+// Responsive
+@media (max-width: 767px) {
+  body {
+    line-height: $base-line-height-small;
+    font-size: $base-font-size-small;
+  }
+
+  section {
+    padding: 15px;
+  }
+
+  table {
+    th {
+      padding: 5px;
+      font-size: $base-font-size;
+    }
+    tbody {
+      tr {
+        td {
+          padding: 5px;
+        }
+      }
+    }
+  }
+
+  #page-title {
+    font-size: 30px;
+    line-height: 40px;
+    margin-bottom: 50px;
+  }
+
+  // Search
+  #search {
+    height: 70px;
+    form {
+      input {
+        @include theme-text-field('dark', 16px, 0 60px 10px 0);
+      }
+      .form-actions {
+        button:not(.hide) {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+
+  // Results
+  #results {
+    table {
+      th.sort {
+        span {
+          padding-right: 20px;
+          &:after {
+            transform: translateY(-50%) scale(0.75);
+          }
+        }
+      }
+      td.col-date {
+        text-align: center;
+        min-width: 120px;
+      }
+    }
   }
 }
