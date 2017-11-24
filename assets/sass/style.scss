@@ -56,6 +56,11 @@ table {
     }
   }
 }
+.hide {
+  visibility: hidden;
+  opacity: 0;
+  width: 0;
+}
 .field-text {
   @extend %text-field;
   @include theme-text-field;
@@ -94,7 +99,7 @@ table {
       right: 0;
       top: 50%;
       transform: translateY(-50%);
-      button {
+      button:not(.hide) {
         margin-left: 10px;
       }
     }

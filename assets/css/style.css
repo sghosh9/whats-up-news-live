@@ -132,6 +132,12 @@ table tbody tr:nth-child(odd) {
   background: #edf7f8;
 }
 
+.hide {
+  visibility: hidden;
+  opacity: 0;
+  width: 0;
+}
+
 .field-text {
   border-bottom: 1px solid #222222;
   color: #222222;
@@ -174,7 +180,7 @@ table tbody tr:nth-child(odd) {
   top: 50%;
   transform: translateY(-50%);
 }
-#search form .form-actions button {
+#search form .form-actions button:not(.hide) {
   margin-left: 10px;
 }
 

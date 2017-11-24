@@ -191,11 +191,11 @@ $(function() {
           q: input
         },
         success: function(response) {
-          $('body').removeClass('no-results')
+          $('body').removeClass('no-results');
           // console.log(response);
         },
         error: function(response) {
-          $('body').addClass('no-results')
+          $('body').addClass('no-results');
           // console.log(response);
         },
       });
@@ -206,11 +206,28 @@ $(function() {
   var SearchView = Backbone.View.extend({
     el: $('#news-search'),
     events: {
-      'keyup input': _.debounce(function(event){
+      'keyup .field-search': _.debounce(function(event){
         this.triggerSearch(event);
        }, 500),
+      // Same event on same element, but since events are objects where keys need to be unique, hence,
+      // using a different key for handling another feature.
+      'keyup input': 'startType',
       'submit': 'triggerSearch',
       'reset': 'resetForm'
+    },
+
+    // Handler for user typing action.
+    startType: function(event) {
+      var input = $(event.currentTarget).val();
+      // If there is input text, show the reset button, else hide it.
+      if (input) {
+        this.$('.form-reset').removeClass('hide');
+      }
+      else {
+        this.$('.form-reset').addClass('hide');
+        // Reset to load screen as well.
+        $('body').addClass('no-results');
+      }
     },
 
     // Hnalder for form submission and to trigger search.
@@ -249,8 +266,12 @@ $(function() {
 
     // Handler for for reset.
     resetForm: function() {
-      // When user clears the form, focus back to the input for searching again.
+      // When user clears the form, focus back to the input for searching again, and hide the reset button.
       this.$('input[name="search"]').focus();
+      this.$('.form-reset').addClass('hide');
+
+      // Reset to load screen as well.
+      $('body').addClass('no-results');
     }
   });
 
