@@ -151,8 +151,7 @@ label {
     .form-actions {
       position: absolute;
       right: 0;
-      top: 50%;
-      transform: translateY(-50%);
+      top: 5px;
       button:not(.hide) {
         margin-left: 10px;
       }
@@ -307,6 +306,7 @@ label {
         @include theme-text-field('dark', 16px, 0 60px 10px 0);
       }
       .form-actions {
+        top: -5px;
         button:not(.hide) {
           margin-left: 0;
         }
