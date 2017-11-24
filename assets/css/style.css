@@ -145,6 +145,10 @@ table tbody tr:nth-child(odd) {
   padding: 8px 0;
 }
 
+#main {
+  height: 80%;
+}
+
 #search {
   background: #222222;
   padding: 20px 15px;
@@ -184,6 +188,9 @@ table tbody tr:nth-child(odd) {
   margin-left: 10px;
 }
 
+#results {
+  display: none;
+}
 #results table {
   width: 100%;
 }
@@ -213,6 +220,7 @@ table tbody tr:nth-child(odd) {
   transition: all 0.25s ease;
 }
 #results table th.sort-asc span:after {
+  right: -5px;
   transform: translateY(-50%) rotate(180deg);
 }
 #results table td.col-date {
@@ -220,9 +228,27 @@ table tbody tr:nth-child(odd) {
   min-width: 170px;
 }
 
+#results-empty {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 30px;
+}
+
+.showing-results #results {
+  display: block;
+}
+.showing-results #results-empty {
+  display: none;
+}
+
 .no-results #search {
   height: 100%;
 }
-.no-results #results {
+.no-results #main {
   display: none;
 }

@@ -147,30 +147,40 @@ $(function() {
 
     // Handler for sort event on collection.
     render: function() {
-      // Store the tbody element for multiple uses.
-      var tableBody = this.$('tbody');
-      // Make the table entry before appending results.
-      tableBody.empty();
+      if (this.collection.models.length > 0) {
 
-      // For each model, call the NewsView view to render each row.
-      _(this.collection.models).each(function(news) {
-        var newsRow = new NewsView({model: news});
-        tableBody.append(newsRow.render().el);
-      });
+        // Store the tbody element for multiple uses.
+        var tableBody = this.$('tbody');
+        // Make the table entry before appending results.
+        tableBody.empty();
 
-      // Remove sort-[direction] class if present.
-      this.$('thead th[class*="sort"]').removeClass(this.sortClasses.asc + ' sort ' + this.sortClasses.desc);
+        // For each model, call the NewsView view to render each row.
+        _(this.collection.models).each(function(news) {
+          var newsRow = new NewsView({model: news});
+          tableBody.append(newsRow.render().el);
+        });
 
-      // Add sort-[direction] class to active column.
-      var activeColumn = this.$('thead th[column="' + this.collection.sortColumn + '"]');
-      if (this.collection.sortDirection === 1) {
-        activeColumn.addClass(this.sortClasses.asc + ' sort');
+        // Remove sort-[direction] class if present.
+        this.$('thead th[class*="sort"]').removeClass(this.sortClasses.asc + ' sort ' + this.sortClasses.desc);
+
+        // Add sort-[direction] class to active column.
+        var activeColumn = this.$('thead th[column="' + this.collection.sortColumn + '"]');
+        if (this.collection.sortDirection === 1) {
+          activeColumn.addClass(this.sortClasses.asc + ' sort');
+        }
+        else {
+          activeColumn.addClass(this.sortClasses.desc + ' sort');
+        }
+
+        // Since we have results let's show them.
+        $('#main').addClass('showing-results');
+
+        return this;
       }
       else {
-        activeColumn.addClass(this.sortClasses.desc + ' sort');
+        // Since we don't have results let's show the message.
+        $('#main').removeClass('showing-results');
       }
-
-      return this;
     }
   });
 

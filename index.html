@@ -23,22 +23,30 @@
       </form>
     </section>
 
-    <section id="results">
-      <table>
-        <thead>
-          <tr>
-            <th class="col-date" column="publishedAt"><span>Published</span></th>
-            <th class="col-title" column="title"><span>Title</span></th>
-            <th class="col-author" column="author"><span>Author</span></th>
-            <th class="col-source" column="source"><span>Source</span></th>
-            <!-- <th column="description">Description</th> -->
-          </tr>
-        </thead>
-        <tbody>
+    <div id="main">
 
-        </tbody>
-      </table>
-    </section>
+      <section id="results">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-date" column="publishedAt"><span>Published</span></th>
+              <th class="col-title" column="title"><span>Title</span></th>
+              <th class="col-author" column="author"><span>Author</span></th>
+              <th class="col-source" column="source"><span>Source</span></th>
+              <!-- <th column="description">Description</th> -->
+            </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+        </table>
+      </section>
+
+      <section id="results-empty">
+        <h2>Sorry mate! I got no news of that. Try searching again?</h2>
+      </section>
+
+    </div>
 
     <script type="text/template" id="row-template">
       <td class="col-date"><%= _.template.formatDate(publishedAt) %></td>
