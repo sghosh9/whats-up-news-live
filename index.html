@@ -27,6 +27,7 @@
         <h1 id="page-title">Access news from over 5000 articles.<br>Start typing now.</h1>
         <div class="form-wrapper">
           <input type="text" class="field-text field-search" name="search" placeholder="What do you want to know today?" autofocus>
+          <div class="error hide"></div>
           <div class="form-actions">
             <button type="submit" class="form-button form-submit" value="Submit" title="Submit to start your search">Go!</button>
             <button type="reset" class="form-button form-reset hide" value="Clear form" title="Clear the form and start searching again">Clear</button>
@@ -62,6 +63,9 @@
 
             </tbody>
           </table>
+          <section id="filter-results-empty" class="hide">
+            <h2>Nothing here!</h2>
+          </section>
         </div>
       </section>
 

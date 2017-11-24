@@ -207,28 +207,36 @@ $(function() {
           newsList = this.collection.where(filterVals);
         }
 
-        // For each model, call the NewsView view to render each row.
-        _(newsList).each(function(news) {
-          var newsRow = new NewsView({model: news});
-          tableBody.append(newsRow.render().el);
-        });
+        // Since filtering could have removed all values hence don't return an empty table.
+        if (newsList.length > 0) {
+          $('#filter-results-empty').addClass('hide');
 
-        // Remove sort-[direction] class if present.
-        this.$('thead th[class*="sort"]').removeClass(this.sortClasses.asc + ' sort ' + this.sortClasses.desc);
+          // For each model, call the NewsView view to render each row.
+          _(newsList).each(function(news) {
+            var newsRow = new NewsView({model: news});
+            tableBody.append(newsRow.render().el);
+          });
 
-        // Add sort-[direction] class to active column.
-        var activeColumn = this.$('thead th[column="' + this.collection.sortColumn + '"]');
-        if (this.collection.sortDirection === 1) {
-          activeColumn.addClass(this.sortClasses.asc + ' sort');
+          // Remove sort-[direction] class if present.
+          this.$('thead th[class*="sort"]').removeClass(this.sortClasses.asc + ' sort ' + this.sortClasses.desc);
+
+          // Add sort-[direction] class to active column.
+          var activeColumn = this.$('thead th[column="' + this.collection.sortColumn + '"]');
+          if (this.collection.sortDirection === 1) {
+            activeColumn.addClass(this.sortClasses.asc + ' sort');
+          }
+          else {
+            activeColumn.addClass(this.sortClasses.desc + ' sort');
+          }
+
+          // Since we have results let's show them.
+          $('#main').addClass('showing-results');
+
+          return this;
         }
         else {
-          activeColumn.addClass(this.sortClasses.desc + ' sort');
+          $('#filter-results-empty').removeClass('hide');
         }
-
-        // Since we have results let's show them.
-        $('#main').addClass('showing-results');
-
-        return this;
       }
       else {
         // Since we don't have results let's show the message.
@@ -292,6 +300,7 @@ $(function() {
       // If there is input text, show the reset button, else hide it.
       if (input) {
         this.$('.form-reset').removeClass('hide');
+        this.errorHandler(false);
       }
       else {
         this.$('.form-reset').addClass('hide');
@@ -320,6 +329,9 @@ $(function() {
         // If the action is form submit, get the value from this form's search field.
         case 'submit':
           var input = this.$('input[name="search"]').val();
+          if(!input) {
+            this.errorHandler(true, 'Please write something.');
+          }
           break;
       }
 
@@ -331,6 +343,10 @@ $(function() {
       if (input && appGlobal.isAlphaNumeric(input) && input != searchInputPrev) {
         this.model.searchInput = input;
         this.model.newsSearch(input);
+        this.errorHandler(false);
+      }
+      else if (input && !appGlobal.isAlphaNumeric(input)) {
+        this.errorHandler(true, 'We accept only alphanumeric!');
       }
     },
 
@@ -345,6 +361,16 @@ $(function() {
 
       // Remove the previous filters as well.
       $('#results-filter .filter').remove();
+    },
+
+    // Handler for showing error messages.
+    errorHandler: function(flag, msg) {
+      if (flag) {
+        this.$('.error').removeClass('hide').text(msg);
+      }
+      else {
+        this.$('.error').addClass('hide').text('');
+      }
     }
   });
 
