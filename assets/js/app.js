@@ -109,14 +109,18 @@ $(function() {
 
   // View for entire table.
   var NewsTableView = Backbone.View.extend({
-    el: $('table'),
+    el: $('#results'),
     events: {
-      'click th': 'headerClick'
+      'click table th': 'headerClick',
+      'change #results-filter .field-filter': 'newsFilter',
+      'reset': 'resetForm'
     },
     sortClasses: {
       asc: 'sort-asc',
       desc: 'sort-desc'
     },
+
+    selectFilterTemplate: _.template($('#filter-select').html()),
 
     initialize: function() {
       // Re-render the table on both sort and sync events on the collection.
@@ -145,17 +149,66 @@ $(function() {
       this.collection.sortNews();
     },
 
-    // Handler for sort event on collection.
-    render: function() {
-      if (this.collection.models.length > 0) {
+    // Handler for filters.
+    newsFilter: function(event) {
+      var filtersEl = this.$('#results-filter .form-wrapper'),
+          filters = {};
+      _(filtersEl.find('.field-filter')).each(function(filterValue) {
+        if ($(filterValue).val()) {
+          filters[$(filterValue).attr('name')] = $(filterValue).val();
+          filters.active = true;
+        }
+      });
+      this.render(filters);
+    },
 
+    // Handler for form reset.
+    resetForm: function() {
+      // When user clears the form, reset filters and render full collection.
+      this.$('#results-filter .field-filter').val(null).trigger("change");
+      this.render(this.collection);
+    },
+
+    // Handler for sort event on collection.
+    render: function(filterVals) {
+      var newsList = this.collection.models;
+
+      if (newsList.length > 0) {
         // Store the tbody element for multiple uses.
-        var tableBody = this.$('tbody');
+        var tableBody = this.$('tbody'),
+            filters = this.$('#results-filter .form-wrapper'),
+            filterAuthor = {},
+            filterSource = {};
+
         // Make the table entry before appending results.
         tableBody.empty();
 
+        // Build the filters from the entire collection.
+        _(newsList).each(function(news) {
+          if(news.get('author')) {
+            filterAuthor[news.get('author')] = news.get('author');
+          }
+          if(news.get('source')) {
+            filterSource[news.get('source')] = news.get('source');
+          }
+        });
+        // Add to HTML only if they aren't already.
+        if (filters.find('.filter').length == 0) {
+          filters.prepend(this.selectFilterTemplate({id: 'source', label: 'Source', filterValues: filterSource}));
+          filters.prepend(this.selectFilterTemplate({id: 'author', label: 'Author', filterValues: filterAuthor}));
+
+          filters.find('.field-filter').select2();
+        }
+
+        // If there are filter values, filter the collection before rendering.
+        // We don't actually alter the collection itself for future rendering.
+        if (filterVals.active) {
+          delete filterVals["active"];
+          newsList = this.collection.where(filterVals);
+        }
+
         // For each model, call the NewsView view to render each row.
-        _(this.collection.models).each(function(news) {
+        _(newsList).each(function(news) {
           var newsRow = new NewsView({model: news});
           tableBody.append(newsRow.render().el);
         });
@@ -191,9 +244,12 @@ $(function() {
       // Create a NewsCollection collection with parsing on its model enabled.
       this.newscollection = new NewsCollection({parse: true});
       // Pass it to the NewsTableView view.
-      new NewsTableView({collection: this.newscollection});
+      this.newsview = new NewsTableView({collection: this.newscollection});
     },
     newsSearch: function(input) {
+      // Show loader.
+      $('#search-loader').removeClass('hide');
+
       // Fetch the data from the collection's url.
       this.newscollection.fetch({
         reset: true,
@@ -201,15 +257,19 @@ $(function() {
           q: input
         },
         success: function(response) {
-          $('body').removeClass('no-results');
+          $('body').removeClass('no-results search-init');
+          // Hide loader.
+          $('#search-loader').addClass('hide');
           // console.log(response);
         },
         error: function(response) {
-          $('body').addClass('no-results');
+          $('body').removeClass('no-results search-init');
+          // Hide loader.
+          $('#search-loader').addClass('hide');
           // console.log(response);
         },
       });
-    }
+    },
   });
 
   // View for search form.
@@ -274,7 +334,7 @@ $(function() {
       }
     },
 
-    // Handler for for reset.
+    // Handler for form reset.
     resetForm: function() {
       // When user clears the form, focus back to the input for searching again, and hide the reset button.
       this.$('input[name="search"]').focus();
@@ -282,6 +342,9 @@ $(function() {
 
       // Reset to load screen as well.
       $('body').addClass('no-results');
+
+      // Remove the previous filters as well.
+      $('#results-filter .filter').remove();
     }
   });
 
@@ -292,5 +355,7 @@ $(function() {
   var newsSearch = new SearchModel();
   // Pass it to the SearchView view.
   new SearchView({model: newsSearch});
+
+  $('select').select2();
 
 });
