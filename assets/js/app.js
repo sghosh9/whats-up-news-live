@@ -31,8 +31,6 @@ $(function() {
       url: '',
       author: '',
       source: '',
-      // description: '',
-      // urlToImage: ''
     },
     parse: function(response) {
 
