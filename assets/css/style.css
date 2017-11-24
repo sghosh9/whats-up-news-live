@@ -64,6 +64,27 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   outline: none;
 }
 
+.form-submit, .form-reset {
+  border: none;
+  text-indent: -99999px;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  outline: none;
+}
+.form-submit:hover, .form-reset:hover {
+  opacity: 0.75;
+}
+
+.form-submit {
+  background: url(../images/icon-sprite.png) no-repeat -5px 0px;
+}
+
+.form-reset {
+  background: url(../images/icon-sprite.png) no-repeat -5px -37px;
+}
+
 * {
   box-sizing: border-box;
   transition: all 0.5s ease;
@@ -134,13 +155,27 @@ table tbody tr:nth-child(odd) {
   -webkit-flex: 1;
   flex: 1;
 }
-#search input {
+#search form .form-wrapper {
+  width: 95%;
+  max-width: 800px;
+  margin: auto;
+  position: relative;
+}
+#search form input {
   border-bottom: 1px solid #FFFFFF;
   color: #FFFFFF;
   font-size: 30px;
-  padding: 0 0 20px;
-  width: 95%;
-  max-width: 800px;
+  padding: 0 100px 20px 0;
+  width: 100%;
+}
+#search form .form-actions {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+#search form .form-actions button {
+  margin-left: 10px;
 }
 
 #results table {
@@ -150,13 +185,19 @@ table tbody tr:nth-child(odd) {
   text-transform: uppercase;
   cursor: pointer;
 }
+#results table th:hover {
+  background: #47aeb8;
+}
+#results table th.sort {
+  background: #6cbec6;
+}
 #results table th.sort span {
   position: relative;
   padding-right: 25px;
 }
 #results table th.sort span:after {
   content: '';
-  background: url(../images/sort-arrow.png) no-repeat;
+  background: url(../images/icon-sprite.png) no-repeat -5px -74px;
   height: 20px;
   width: 20px;
   position: absolute;
@@ -170,6 +211,7 @@ table tbody tr:nth-child(odd) {
 }
 #results table td.col-date {
   text-align: center;
+  min-width: 170px;
 }
 
 .no-results #search {

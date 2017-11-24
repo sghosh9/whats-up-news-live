@@ -60,6 +60,12 @@ table {
   @extend %text-field;
   @include theme-text-field;
 }
+.form-submit {
+  @extend %form-submit;
+}
+.form-reset {
+  @extend %form-reset;
+}
 
 
 // Search
@@ -73,11 +79,25 @@ table {
   @include justify-content(center);
   form {
     @include flex(1);
-  }
-  input {
-    @include theme-text-field('dark', 30px, 0 0 20px);
-    width: 95%;
-    max-width: 800px;
+    .form-wrapper {
+      width: 95%;
+      max-width: 800px;
+      margin: auto;
+      position: relative;
+    }
+    input {
+      @include theme-text-field('dark', 30px, 0 100px 20px 0);
+      width: 100%;
+    }
+    .form-actions {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      button {
+        margin-left: 10px;
+      }
+    }
   }
 }
 
@@ -88,13 +108,17 @@ table {
     th {
       text-transform: uppercase;
       cursor: pointer;
+      &:hover {
+        background: lighten($baseColor, 10%);
+      }
       &.sort {
+        background: lighten($baseColor, 20%);
         span {
           position: relative;
           padding-right: 25px;
           &:after {
             content: '';
-            background: url(../images/sort-arrow.png) no-repeat;
+            background: url(../images/icon-sprite.png) no-repeat -5px -74px;
             height: 20px;
             width: 20px;
             position: absolute;
@@ -112,6 +136,7 @@ table {
     }
     td.col-date {
       text-align: center;
+      min-width: 170px;
     }
   }
 }

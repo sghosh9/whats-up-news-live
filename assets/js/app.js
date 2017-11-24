@@ -209,11 +209,32 @@ $(function() {
       'keyup input': _.debounce(function(event){
         this.triggerSearch(event);
        }, 500),
+      'submit': 'triggerSearch',
+      'reset': 'resetForm'
     },
+
+    // Hnalder for form submission and to trigger search.
     triggerSearch: function(event) {
-      var searchInput = $(event.currentTarget),
+      // To ensure submit button doesn't trigger form submission.
+      event.preventDefault();
+
+      var inputType = event.type,
           searchInputPrev = this.model.searchInput,
-          input = searchInput.val();
+          input = '';
+
+      // The form could have been either submitted, or the user has paused typing.
+      // If the user has paused typing, let's ease the app use my showing them the results right away.
+      switch(inputType) {
+        // If the action is pause after typing, get the value from the event's target field directly.
+        case 'keyup':
+          var input = $(event.currentTarget).val();
+          break;
+
+        // If the action is form submit, get the value from this form's search field.
+        case 'submit':
+          var input = this.$('input[name="search"]').val();
+          break;
+      }
 
       // If
       //   value is enetered, AND
@@ -222,8 +243,14 @@ $(function() {
       // then, start the news search with the value.
       if (input && appGlobal.isAlphaNumeric(input) && input != searchInputPrev) {
         this.model.searchInput = input;
-        this.model.newsSearch(searchInput.val());
+        this.model.newsSearch(input);
       }
+    },
+
+    // Handler for for reset.
+    resetForm: function() {
+      // When user clears the form, focus back to the input for searching again.
+      this.$('input[name="search"]').focus();
     }
   });
 
